@@ -2,6 +2,20 @@
 
 A simple Twitter-like application built with React, Node.js, Express, and MongoDB. This application allows users to post notes, like/unlike posts, and switch between dark and light modes.
 
+## Screenshots
+
+
+![image](https://github.com/user-attachments/assets/8f4410f0-7742-4810-ac5f-9662aabaf5a7)
+
+ 
+![image](https://github.com/user-attachments/assets/0fa2a8f8-3017-41c0-b3b1-23bd00650f2e)
+
+
+![image](https://github.com/user-attachments/assets/04109fa8-b48d-4154-823f-ef4ffc2d7996)
+
+
+
+
 ## Features
 
 ### Core Features
