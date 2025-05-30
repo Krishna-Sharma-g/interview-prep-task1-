@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Note = require('../models/Note');
 
-// Middleware to simulate user auth
+
 const authMiddleware = (req, res, next) => {
   req.user = { id: '123', name: 'Test User' };
   next();
@@ -10,7 +10,7 @@ const authMiddleware = (req, res, next) => {
 
 router.use(authMiddleware);
 
-// Create a new note
+
 router.post('/', async (req, res) => {
   try {
     const { content, author } = req.body;
@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// List all notes with pagination
+
 router.get('/', async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -47,7 +47,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Like a note
+
 router.patch('/:id/like', async (req, res) => {
   try {
     const note = await Note.findById(req.params.id);
@@ -62,7 +62,7 @@ router.patch('/:id/like', async (req, res) => {
   }
 });
 
-// Unlike a note
+
 router.patch('/:id/unlike', async (req, res) => {
   try {
     const note = await Note.findById(req.params.id);
@@ -77,7 +77,7 @@ router.patch('/:id/unlike', async (req, res) => {
   }
 });
 
-// Delete a note
+
 router.delete('/:id', async (req, res) => {
   try {
     const note = await Note.findByIdAndDelete(req.params.id);

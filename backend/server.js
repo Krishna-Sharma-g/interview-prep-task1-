@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// MongoDB Connection
+
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/mini-twitter';
 
 mongoose.connect(MONGODB_URI, {
@@ -22,7 +22,7 @@ mongoose.connect(MONGODB_URI, {
   process.exit(1);
 });
 
-// Handle MongoDB connection errors
+
 mongoose.connection.on('error', (err) => {
   console.error('MongoDB connection error:', err);
 });
@@ -31,11 +31,11 @@ mongoose.connection.on('disconnected', () => {
   console.log('MongoDB disconnected');
 });
 
-// Routes
+
 const noteRoutes = require('./routes/notes');
 app.use('/notes', noteRoutes);
 
-// Error handling middleware
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: 'Something went wrong!' });
