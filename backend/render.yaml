@@ -2,8 +2,9 @@ services:
   - type: web
     name: mini-twitter-backend
     env: node
-    buildCommand: npm install
-    startCommand: npm start
+    rootDir: backend
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
     envVars:
       - key: MONGODB_URI
         sync: false
