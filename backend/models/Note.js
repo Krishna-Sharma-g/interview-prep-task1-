@@ -11,7 +11,13 @@ const noteSchema = new mongoose.Schema({
   },
   likes: {
     type: Number,
-    default: 0
+    default: 0,
+    min: 0
+  },
+  dislikes: {
+    type: Number,
+    default: 0,
+    min: 0
   },
   createdAt: {
     type: Date,
