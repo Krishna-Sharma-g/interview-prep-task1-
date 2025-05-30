@@ -1,42 +1,77 @@
-import { Container, CssBaseline, ThemeProvider, createTheme, Box, Typography } from '@mui/material';
+import { useState, useMemo } from 'react';
+import { Container, CssBaseline, ThemeProvider, createTheme, Box, Typography, IconButton } from '@mui/material';
+import { Brightness4, Brightness7 } from '@mui/icons-material';
 import NotesWall from './components/NotesWall';
 
-const theme = createTheme({
-  palette: {
-    mode: 'light',
-    primary: {
-      main: '#1a73e8',
-    },
-    secondary: {
-      main: '#d93025',
-    },
-  },
-  typography: {
-    fontFamily: 'Arial, sans-serif',
-    h1: {
-      fontSize: '2rem',
-      fontWeight: 'bold',
-    },
-  },
-});
-
 function App() {
+  const [mode, setMode] = useState('light');
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+          primary: {
+            main: '#1976d2',
+          },
+          background: {
+            default: mode === 'light' ? '#f5f5f5' : '#121212',
+            paper: mode === 'light' ? '#ffffff' : '#1e1e1e',
+          },
+        },
+        typography: {
+          fontFamily: 'Arial, sans-serif',
+          h1: {
+            fontSize: '1.8rem',
+            fontWeight: 'bold',
+          },
+        },
+      }),
+    [mode],
+  );
+
+  const toggleColorMode = () => {
+    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box sx={{ 
         minHeight: '100vh',
-        backgroundColor: '#f8f9fa',
-        py: 3
+        backgroundColor: 'background.default',
+        py: 2
       }}>
         <Container maxWidth="md">
-          <Typography 
-            variant="h1" 
-            align="center" 
-            sx={{ mb: 3 }}
-          >
-            Mini Twitter
-          </Typography>
+          <Box sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            position: 'relative',
+            mb: 2 
+          }}>
+            <Typography 
+              variant="h1" 
+              sx={{ 
+                color: 'text.primary',
+                fontSize: { xs: '1.5rem', sm: '1.8rem' },
+                textAlign: 'center'
+              }}
+            >
+              Mini Twitter
+            </Typography>
+            <IconButton 
+              onClick={toggleColorMode} 
+              color="inherit"
+              sx={{ 
+                position: 'absolute',
+                right: 0,
+                p: 1
+              }}
+            >
+              {mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
+            </IconButton>
+          </Box>
           <NotesWall />
         </Container>
       </Box>

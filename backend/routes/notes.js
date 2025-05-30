@@ -48,32 +48,45 @@ router.get('/', async (req, res) => {
 });
 
 
-router.patch('/:id/like', async (req, res) => {
+router.patch('/:id/toggle-like', async (req, res) => {
   try {
     const note = await Note.findById(req.params.id);
     if (!note) {
       return res.status(404).json({ message: 'Note not found' });
     }
-    note.likes = (note.likes ?? 0) + 1;
+    
+    // Toggle like status
+    if (note.likes > 0) {
+      note.likes = 0; // Unlike
+    } else {
+      note.likes = 1; // Like
+      note.dislikes = 0; // Remove dislike if present
+    }
+    
     await note.save();
-    res.json({ message: 'Note liked successfully', note });
+    res.json({ message: 'Note like status updated successfully', note });
   } catch (error) {
-    res.status(500).json({ message: `Error liking note: ${error.message}` });
+    res.status(500).json({ message: `Error updating like status: ${error.message}` });
   }
 });
 
-
-router.patch('/:id/unlike', async (req, res) => {
+router.patch('/:id/toggle-dislike', async (req, res) => {
   try {
     const note = await Note.findById(req.params.id);
     if (!note) {
       return res.status(404).json({ message: 'Note not found' });
     }
-    note.likes = Math.max((note.likes ?? 0) - 1, 0);
-    await note.save();
-    res.json({ message: 'Note unliked successfully', note });
+    
+    // Simple toggle: if disliked, remove dislike; if not disliked, add dislike
+    note.dislikes = note.dislikes === 1 ? 0 : 1;
+    note.likes = 0; // Remove like if present
+    
+    const updatedNote = await note.save();
+    console.log('Updated note after dislike:', updatedNote);
+    res.json({ message: 'Note dislike status updated successfully', note: updatedNote });
   } catch (error) {
-    res.status(500).json({ message: `Error unliking note: ${error.message}` });
+    console.error('Error in toggle-dislike:', error);
+    res.status(500).json({ message: `Error updating dislike status: ${error.message}` });
   }
 });
 
