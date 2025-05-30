@@ -68,7 +68,11 @@ A full-stack notes application built with React, Node.js, Express, and MongoDB.
 
 ## Screenshots
 
-[Add your screenshots here]
+![image](https://github.com/user-attachments/assets/cbebe598-afed-4e83-8c99-11b84f690792)
+
+![image](https://github.com/user-attachments/assets/1ef676a2-d89f-4101-ab61-af2cc77dc1d1)
+
+
 
 ## License
 
